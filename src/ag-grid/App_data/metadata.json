@@ -1,0 +1,218 @@
+﻿{
+  "show_date": {
+    "key": "show_date",
+    "label": "Show",
+    "example": "1999-01-11",
+    "canBeFacet": true,
+    "jsonType": "string",
+    "isPrivate": false,
+    "isNumber": false,
+    "isUrl": false,
+    "isResource": false,
+    "dataType": "text",
+    "facet": {
+      "minValue": "1999-01-11",
+      "maxValue": "2015-08-05",
+      "isUnique": true,
+      "isTruncated": true,
+      "stats": {
+        "field": "show_date",
+        "distinctRecordCount": 2639,
+        "totalRecordCount": 2698,
+        "mostFrequentValue": "2013-12-18",
+        "mostFrequentCount": 4
+      },
+      "distinctValues": "too many",
+      "frequentValues": {
+        "1999-02-10": 3,
+        "2003-10-07": 4,
+        "2005-09-14": 3,
+        "2008-01-01": 3,
+        "2013-12-18": 4
+      }
+    }
+  },
+  "year": {
+    "key": "year",
+    "label": "Year",
+    "example": 1999,
+    "canBeFacet": true,
+    "jsonType": "number",
+    "isPrivate": false,
+    "isNumber": true,
+    "isUrl": false,
+    "isResource": false,
+    "dataType": "number",
+    "facet": {
+      "minValue": "1999",
+      "maxValue": "2015",
+      "isUnique": false,
+      "isTruncated": false,
+      "stats": {
+        "field": "year",
+        "distinctRecordCount": 17,
+        "totalRecordCount": 2698,
+        "mostFrequentValue": "2003",
+        "mostFrequentCount": 169
+      },
+      "distinctValues": [ "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015" ],
+      "frequentValues": {
+        "1999": 167,
+        "2000": 169,
+        "2001": 157,
+        "2002": 159,
+        "2003": 169,
+        "2004": 164,
+        "2005": 162,
+        "2006": 161,
+        "2007": 141,
+        "2008": 164,
+        "2009": 163,
+        "2010": 165,
+        "2011": 163,
+        "2012": 164,
+        "2013": 167,
+        "2014": 163,
+        "2015": 100
+      }
+    }
+  },
+  "guest_name": {
+    "key": "guest_name",
+    "label": "Guest",
+    "example": "Michael J. Fox",
+    "canBeFacet": true,
+    "jsonType": "string",
+    "isPrivate": false,
+    "isNumber": false,
+    "isUrl": false,
+    "isResource": false,
+    "dataType": "text",
+    "facet": {
+      "minValue": "Aaron Brown",
+      "maxValue": "none",
+      "isUnique": false,
+      "isTruncated": true,
+      "stats": {
+        "field": "guest_name",
+        "distinctRecordCount": 1655,
+        "totalRecordCount": 2698,
+        "mostFrequentValue": "Fareed Zakaria",
+        "mostFrequentCount": 19
+      },
+      "distinctValues": "too many",
+      "frequentValues": {
+        "Paul Rudd": 14,
+        "Bob Dole": 10,
+        "Adam Sandler": 9,
+        "Denis Leary": 17,
+        "Richard Lewis": 10,
+        "Will Ferrell": 14,
+        "none": 11,
+        "Bill O'Reilly": 10,
+        "Fareed Zakaria": 19,
+        "John McCain": 11,
+        "Tom Brokaw": 12,
+        "Sarah Vowell": 9,
+        "Brian Williams": 16,
+        "Bill Clinton": 10,
+        "Reza Aslan": 10,
+        "Ricky Gervais": 13,
+        "Mike Huckabee": 9
+      }
+    }
+  },
+  "google_occupation": {
+    "key": "google_occupation",
+    "label": "Occupation",
+    "example": "actor",
+    "canBeFacet": true,
+    "jsonType": "string",
+    "isPrivate": false,
+    "isNumber": false,
+    "isUrl": false,
+    "isResource": false,
+    "dataType": "text",
+    "facet": {
+      "minValue": "",
+      "maxValue": "writer",
+      "isUnique": false,
+      "isTruncated": true,
+      "stats": {
+        "field": "google_occupation",
+        "distinctRecordCount": 300,
+        "totalRecordCount": 2698,
+        "mostFrequentValue": "actor",
+        "mostFrequentCount": 599
+      },
+      "distinctValues": "too many",
+      "frequentValues": {
+        "actor": 599,
+        "comedian": 106,
+        "film actress": 21,
+        "stand-up comedian": 44,
+        "actress": 271,
+        "singer-songwriter": 33,
+        "journalist": 253,
+        "": 30,
+        "writer": 53,
+        "film director": 24,
+        "singer": 24,
+        "television host": 40,
+        "us senator": 85,
+        "commentator": 24,
+        "professor": 37,
+        "author": 153,
+        "historian": 22,
+        "former governor": 29
+      }
+    }
+  },
+  "category": {
+    "key": "category",
+    "label": "Category",
+    "example": "acting",
+    "canBeFacet": true,
+    "jsonType": "string",
+    "isPrivate": false,
+    "isNumber": false,
+    "isUrl": false,
+    "isResource": false,
+    "dataType": "text",
+    "facet": {
+      "minValue": "",
+      "maxValue": "special",
+      "isUnique": false,
+      "isTruncated": false,
+      "stats": {
+        "field": "category",
+        "distinctRecordCount": 19,
+        "totalRecordCount": 2698,
+        "mostFrequentValue": "acting",
+        "mostFrequentCount": 934
+      },
+      "distinctValues": [ "acting", "comedy", "musician", "media", "special", "politician", "athletics", "business", "advocacy", "", "political aide", "misc", "academic", "government", "legal", "clergy", "science", "consultant", "military" ],
+      "frequentValues": {
+        "acting": 934,
+        "comedy": 153,
+        "musician": 124,
+        "media": 760,
+        "special": 16,
+        "politician": 300,
+        "athletics": 52,
+        "business": 25,
+        "advocacy": 24,
+        "": 14,
+        "political aide": 38,
+        "misc": 12,
+        "academic": 103,
+        "government": 40,
+        "legal": 33,
+        "clergy": 8,
+        "science": 28,
+        "consultant": 18,
+        "military": 16
+      }
+    }
+  }
+}

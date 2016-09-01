@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>grid </title>
+        <link rel="stylesheet" href="vender/bootstrap/css/bootstrap.css">
+
+        <script src="vender/angular/angular.min.js"></script>
+        <script src="vender/aggrid/dist/ag-grid.js?ignore=notused28"></script>
+        <script src="index.js"></script>
+
+    </head>
+
+<body class="container" ng-app="app" ng-controller="gridCtrl as vm">
+    <p>{{vm.title}}</p>
+
+    <div>
+        <a href="https://ag-grid.com/" target="_blank">AG Grid</a><br />
+        <a href="/api/data" target="_blank">show the data</a><br />
+        <a href="/api/metadata" target="_blank">show the metadata</a><br />
+
+        <a href="https://hub.docker.com/r/datalift/dailyshow.datalift/" target="_blank">datalift dailyshow</a><br />
+        <a href="https://hub.docker.com/r/datalift/starbucks.datalift/" target="_blank">datalift starbucks</a><br />
+        <a href="https://hub.docker.com/r/datalift/flowaustralia.datalift/" target="_blank">datalift flowaustralia</a><br />
+        
+        <a href="https://github.com/Microsoft/Docker.DotNet" target="_blank">docker API</a><br />
+
+        
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-2">
+            <button ng-click="vm.doRefresh()">Refresh</button>
+            <div ng-repeat="key in vm.metadata">
+                <button ng-click="vm.doRefresh()">{{key.field}}</button>
+            </div>
+        </div>
+        <div class="col-lg-10" style="height:600px">
+            <div ag-grid="vm.gridOptions" class="ag-dark" style="height: 100%;">
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--<script src="vender/bootstrap/js/bootstrap.js"></script>-->
+
+</body>
+
+</html>
