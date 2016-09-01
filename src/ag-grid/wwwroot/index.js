@@ -14,10 +14,12 @@ module.controller("gridCtrl", function ($http) {
         rowData: [],
 
         rowSelection: 'multiple',
+        //rowModelType: 'pagination',
         enableColResize: true,
         enableSorting: true,
         enableFilter: true,
         groupHeaders: true,
+        //paginationPageSize: 50,
         rowHeight: 22,
         logging: true,
         suppressRowClickSelection: true
@@ -39,13 +41,46 @@ module.controller("gridCtrl", function ($http) {
             var item = meta[key];
 
             var columnDef = {
+                parent: columnDefs,
                 field: key,
                 type: item && item.dataType,
                 title: item && item.label || key,
                 headerName: item && item.label || key,
-                data: item
+                showDetails: false,
+                toggleDetails: function () {
+                    var currentValue = this.showDetails;
+                    this.parent.forEach(function (item) {
+                        item.showDetails = false;
+                    });
+                    this.showDetails = !currentValue;
+                },
+                data: item,
+                frequentItemsList: [],
+                hasSelectedItem: function () {
+                    var found = this.frequentItemsList.filter(function (item) {
+                        return item.isSelected;
+                    });
+                    return found && found.length;
+                }
+            }
+            for (var freqKey in item.facet.frequentValues) {
+                var freqItem = {
+                    parent: columnDef.frequentItemsList,
+                    name: freqKey,
+                    value: item.facet.frequentValues[freqKey],
+                    isSelected: false,
+                    toggleIsSelected: function () {
+                        var currentValue = this.isSelected;
+                        this.parent.forEach(function (item) {
+                            item.isSelected = false;
+                        });
+                        this.isSelected = !currentValue;
+                    }
+                }
+                columnDef.frequentItemsList.push(freqItem);
             }
 
+       
             columnDefs.push(columnDef);
 
             var filter = [];
@@ -97,6 +132,14 @@ module.controller("gridCtrl", function ($http) {
     this.metadata = [];
     this.gridOptions = gridOptions;
 
+    this.doToggleShowDetails = function (item) {
+        item && item.toggleDetails();
+    }
+
+    this.doToggleIsSelected = function (item) {
+        item && item.toggleIsSelected();
+    }
+
     this.doRefresh = function () {
         var api = this.gridOptions.api;
         var self = this;
@@ -115,4 +158,6 @@ module.controller("gridCtrl", function ($http) {
             api.refreshView();
         })
     }
+
+
 });
