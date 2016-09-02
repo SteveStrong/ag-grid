@@ -25,7 +25,7 @@ module.controller("gridCtrl", function ($http) {
         columnDefs: [],
         rowData: [],
 
-        rowSelection: 'multiple',
+        rowSelection: 'single',
         //rowModelType: 'pagination',
         enableColResize: true,
         enableSorting: true,
