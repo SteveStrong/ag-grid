@@ -22,18 +22,19 @@
         <a href="https://hub.docker.com/r/datalift/dailyshow.datalift/" target="_blank">datalift dailyshow</a><br />
         <a href="https://hub.docker.com/r/datalift/starbucks.datalift/" target="_blank">datalift starbucks</a><br />
         <a href="https://hub.docker.com/r/datalift/flowaustralia.datalift/" target="_blank">datalift flowaustralia</a><br />
-        
+
         <a href="https://github.com/Microsoft/Docker.DotNet" target="_blank">docker API</a><br />
 
         <style>
-           li {
-               list-style: none;
-               padding-left: 1px;
-           }
-           ul {
-               margin-left: 1px;
-               padding-left: 1px;
-           }
+            li {
+                list-style: none;
+                padding-left: 5px;
+            }
+
+            ul {
+                margin-left: 1px;
+                padding-left: 1px;
+            }
         </style>
     </div>
 
@@ -42,28 +43,28 @@
         <div class="col-lg-2">
             <button ng-click="vm.doRefresh()">Refresh</button>
             <div ng-repeat="item in vm.metadata">
-                <div >
-                    <button class="btn btn-info btn-block" ng-click="vm.doToggleShowDetails(item)">{{item.title}} ...{{item.hasSelectedItem()}} </button>
-                    <!--<pre>{{item.data}}</pre>-->
+                <div>
+                    <button class="btn btn-block" ng-class="{'btn-info': !item.hasSelectedItem(), 'btn-success': item.hasSelectedItem()}" ng-click="vm.doToggleShowDetails(item)">
+                        {{item.title}} <span ng-show="item.hasSelectedItem()"><br/>{{item.selectedValue()}} </span> 
+                    </button>
                     <ul ng-show="item.showDetails">
                         <li ng-repeat="feqItem in item.frequentItemsList" ng-click="vm.doToggleIsSelected(feqItem)">
-                            <span ng-show="feqItem.isSelected">XXX</span> <span class="nav-pills">{{feqItem.name}} - ({{feqItem.value}})</span>
-</li>
+                            <span ng-show="feqItem.isSelected" aria-hidden="true">&times;</span>
+                            <span class="nav-pills">{{feqItem.name}} - ({{feqItem.value}})</span>
+                        </li>
                     </ul>
                 </div>
-
             </div>
         </div>
         <div class="col-lg-10" style="height:600px">
             <div ag-grid="vm.gridOptions" class="ag-fresh" style="height: 100%;">
-
             </div>
         </div>
     </div>
 
 
 
-    <!--<script src="vender/bootstrap/js/bootstrap.js"></script>-->
+                    <!--<script src="vender/bootstrap/js/bootstrap.js"></script>-->
 
 </body>
 

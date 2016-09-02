@@ -56,12 +56,17 @@ module.controller("gridCtrl", function ($http) {
                 },
                 data: item,
                 frequentItemsList: [],
-                hasSelectedItem: function () {
+                selectedValue: function () {
                     var found = this.frequentItemsList.filter(function (item) {
                         return item.isSelected;
                     });
-                    return found && found.length;
-                }
+                    var value = found && found[0];
+                    return value ? value.name : undefined;
+                },
+                hasSelectedItem: function () {
+                    var found = this.selectedValue();
+                    return found;
+                },
             }
             for (var freqKey in item.facet.frequentValues) {
                 var freqItem = {
