@@ -2,6 +2,18 @@
 
 var module = angular.module("app", ["agGrid"]);
 
+module.directive('stopEvent', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if(attr && attr.stopEvent)
+                element.bind(attr.stopEvent, function (e) {
+                    e.stopPropagation();
+                });
+        }
+    };
+});
+
 module.controller("gridCtrl", function ($http) {
 
     //docker run -d -p 3000:3000 -p 8080:8080 datalift/starbucks.datalift
@@ -56,6 +68,14 @@ module.controller("gridCtrl", function ($http) {
                 },
                 data: item,
                 frequentItemsList: [],
+                filterDescription: function() {
+                    var found = this.selectedValue();
+                    if (!found) return;
+
+                    var filter = {};
+                    filter[this.field] = found;
+                    return filter;
+                },
                 selectedValue: function () {
                     var found = this.frequentItemsList.filter(function (item) {
                         return item.isSelected;
@@ -67,6 +87,11 @@ module.controller("gridCtrl", function ($http) {
                     var found = this.selectedValue();
                     return found;
                 },
+                clearFilter: function () {
+                    this.frequentItemsList.forEach(function (item) {
+                        item.isSelected = false;
+                    });
+                }
             }
             for (var freqKey in item.facet.frequentValues) {
                 var freqItem = {
@@ -85,6 +110,10 @@ module.controller("gridCtrl", function ($http) {
                 columnDef.frequentItemsList.push(freqItem);
             }
 
+            columnDef.frequentItemsList = columnDef.frequentItemsList.sort(function (a, b) {
+                var x = a.name.toLowerCase(), y = b.name.toLowerCase();
+                return x < y ? -1 : x > y ? 1 : 0;
+            })
        
             columnDefs.push(columnDef);
 
@@ -134,11 +163,36 @@ module.controller("gridCtrl", function ($http) {
     }
 
     this.title = 'Datalift is awesome';
+
+
     this.metadata = [];
+    this.totalRecords = 0;
+    this.foundRecords = 0;
     this.gridOptions = gridOptions;
+
+    this.computeFilter = function () {
+        var filter = {};
+        this.metadata.forEach(function (item) {
+            var description = item.filterDescription(item);
+            if (description) {
+                for (var key in description) {
+                    filter[key] = description[key];
+                }
+            }
+        })
+        return filter;
+    }
+    this.currentFilter = function () {
+        var result = this.computeFilter();
+        return JSON.stringify(result);
+    }
 
     this.doToggleShowDetails = function (item) {
         item && item.toggleDetails();
+    }
+
+    this.doRemoveItem = function (item) {
+        item && item.clearFilter();
     }
 
     this.doToggleIsSelected = function (item) {
@@ -158,7 +212,8 @@ module.controller("gridCtrl", function ($http) {
 
         getData(function (data) {
             //alert(JSON.stringify(data, undefined, 3));
-
+            self.totalRecords = data.length;
+            self.foundRecords = self.totalRecords;
             api.setRowData(data);
             api.refreshView();
         })

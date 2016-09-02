@@ -8,10 +8,27 @@
         <script src="vender/angular/angular.min.js"></script>
         <script src="vender/aggrid/dist/ag-grid.js?ignore=notused28"></script>
         <script src="index.js"></script>
+        <style>
+            body {
+                margin-left: 1px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            li {
+                list-style: none;
+                padding-left: 5px;
+            }
+
+            ul {
+                margin-left: 1px;
+                padding-left: 1px;
+            }
+        </style>
 
     </head>
 
-<body class="container" ng-app="app" ng-controller="gridCtrl as vm">
+<body ng-app="app" ng-controller="gridCtrl as vm">
     <p>{{vm.title}}</p>
 
     <div>
@@ -25,38 +42,51 @@
 
         <a href="https://github.com/Microsoft/Docker.DotNet" target="_blank">docker API</a><br />
 
-        <style>
-            li {
-                list-style: none;
-                padding-left: 5px;
-            }
 
-            ul {
-                margin-left: 1px;
-                padding-left: 1px;
-            }
-        </style>
     </div>
 
-
     <div class="row">
+        <div class="col-lg-12">
+            <pre class="well">{{vm.currentFilter()}}</pre>
+        </div>
+    </div>
+    <div class="row" style="height:1000px">
         <div class="col-lg-2">
-            <button ng-click="vm.doRefresh()">Refresh</button>
+            <button class="btn btn-block btn-primary" ng-click="vm.doRefresh()" aria-label="Left Align">
+                <span class="glyphicon glyphicon-search pull-left" aria-hidden="true"></span>
+                <span class="pull-left">Search</span>
+                <span class="badge ">{{vm.foundRecords}}</span>
+                &nbsp; of &nbsp;
+                <span class="badge">{{vm.totalRecords}}</span>
+            </button>
             <div ng-repeat="item in vm.metadata">
                 <div>
-                    <button class="btn btn-block" ng-class="{'btn-info': !item.hasSelectedItem(), 'btn-success': item.hasSelectedItem()}" ng-click="vm.doToggleShowDetails(item)">
-                        {{item.title}} <span ng-show="item.hasSelectedItem()"><br/>{{item.selectedValue()}} </span> 
-                    </button>
+                    <div class="btn btn-block"
+                         ng-class="{'btn-info': !item.hasSelectedItem(), 'btn-success': item.hasSelectedItem()}"
+                         ng-click="vm.doToggleShowDetails(item)">
+                        <!--<span ng-show="item.showDetails" class="glyphicon glyphicon-arrow-up pull-left"></span>
+                        <span ng-hide="item.showDetails" class="glyphicon glyphicon-arrow-down pull-left"></span>-->
+                        {{item.title}}
+                        <span ng-show="item.hasSelectedItem()">: {{item.selectedValue()}} </span>
+                        <span ng-show="item.hasSelectedItem()" class="pull-right">
+                            <span ng-click="vm.doRemoveItem(item);" stop-event="click" class="glyphicon glyphicon-remove-circle"></span>
+                        </span>
+                    </div>
                     <ul ng-show="item.showDetails">
-                        <li ng-repeat="feqItem in item.frequentItemsList" ng-click="vm.doToggleIsSelected(feqItem)">
-                            <span ng-show="feqItem.isSelected" aria-hidden="true">&times;</span>
-                            <span class="nav-pills">{{feqItem.name}} - ({{feqItem.value}})</span>
+                        <li class="list-group-item "
+                            ng-class="{'list-group-item-info': !feqItem.isSelected, 'list-group-item-success': feqItem.isSelected}"
+                            ng-repeat="feqItem in item.frequentItemsList"
+                            ng-click="vm.doToggleIsSelected(feqItem)">
+                            <span ng-hide="feqItem.isSelected" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+                            <span ng-show="feqItem.isSelected" class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                            <span>{{feqItem.name}}</span>
+                            <span class="badge">{{feqItem.value}}</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-10" style="height:600px">
+        <div class="col-lg-10" style="height:100%">
             <div ag-grid="vm.gridOptions" class="ag-fresh" style="height: 100%;">
             </div>
         </div>
@@ -64,7 +94,7 @@
 
 
 
-                    <!--<script src="vender/bootstrap/js/bootstrap.js"></script>-->
+    <!--<script src="vender/bootstrap/js/bootstrap.js"></script>-->
 
 </body>
 
